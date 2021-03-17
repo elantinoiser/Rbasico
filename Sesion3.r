@@ -5,52 +5,21 @@
 #https://jllopisperez.com/2013/07/06/tema-27-analisis-de-correspondencias/
 
 
-file <- "/Users/rdelatorre/Downloads/scopus456.bib"
-scopus456 <- convert2df(file = file, dbsource = "scopus", format = "bibtex")
-file <- "/Users/rdelatorre/Downloads/savedrecs393.bib"
-savedrecs393 <- convert2df(file = file, dbsource = "wos", format = "bibtex")
-file <- "/Users/rdelatorre/Downloads/savedrecs273.bib"
-savedrecs273 <- convert2df(file = file, dbsource = "wos", format = "bibtex")
+file <- "/Users/rdelatorre/Downloads/scopus128.bib"
+scopus128 <- convert2df(file = file, dbsource = "scopus", format = "bibtex")
+file <- "/Users/rdelatorre/Downloads/savedrecs162.bib"
+savedrecs162 <- convert2df(file = file, dbsource = "wos", format = "bibtex")
+M <- scopus128
+M <- savedrecs162
 
-
-#MERGE DE WEB  OF SCIENCE
-
-wos393 <- as.data.frame(savedrecs393$DI)
-wos273 <- as.data.frame(savedrecs273$DI)
-
-names(wos393) <- "doi"
-names(wos273) <- "doi"
-
-duplicados<- rbind(wos273, wos393)
-
-unique(duplicados$doi)
-
-dplyr::left_join(wos273, wos393)
-
-
-
-scopus <- as.data.frame(scopus456$DI)
-
-names(wos) <- "doi"
-names(scopus) <- "doi"
-
-duplicados<- rbind(wos, scopus)
-
-unique(duplicados$doi)
-
-M<- full_join(savedrecs393, savedrecs273, by="DI")
-M <- M[,1:55]
-names(M)<-names
-
-names<- names(savedrecs393)
-
+M<-bibliometrix::mergeDbSources(savedrecs162, scopus128, remove.duplicated = TRUE)
 
 #####SCOPUS
 ####https://www.youtube.com/watch?v=CwgNPdzKMVI
 
-file <- "/Users/rdelatorre/Downloads/scopus(1).bib"
-M <- convert2df(file = file, dbsource = "scopus", format = "bibtex")
-M<- M[-68,]
+#file <- "/Users/rdelatorre/Downloads/scopus(1).bib"
+#M <- convert2df(file = file, dbsource = "scopus", format = "bibtex")
+#M<- M[-68,]
 
 results <- biblioAnalysis(M, sep = ";")
 S <- summary(object = results, k = 10, pause = TRUE)
