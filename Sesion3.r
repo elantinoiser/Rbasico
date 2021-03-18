@@ -5,6 +5,9 @@
 #https://jllopisperez.com/2013/07/06/tema-27-analisis-de-correspondencias/
 ####https://www.youtube.com/watch?v=CwgNPdzKMVI
 
+#EN SCOPUS SE BUSCA ENTRECOMILLADO Y SE SELECCIONAN LAS OBSERVACIONES CORRESPONDIENTES A SOCIAL SCIENCES
+#EN WOS SE BUSCA EN ALL FIELDS Y SE FILTRA POR TRANSPORTATION
+
 
 file <- "/Users/rdelatorre/Downloads/scopus128.bib"
 scopus128 <- convert2df(file = file, dbsource = "scopus", format = "bibtex")
