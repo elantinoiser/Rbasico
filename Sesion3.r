@@ -5,9 +5,11 @@
 #https://jllopisperez.com/2013/07/06/tema-27-analisis-de-correspondencias/
 ####https://www.youtube.com/watch?v=CwgNPdzKMVI
 
+#LA BÚSQUEDA SE FINALIZÓ EL 17 DE MARZO DE 2021
 #EN SCOPUS SE BUSCA ENTRECOMILLADO Y SE SELECCIONAN LAS OBSERVACIONES CORRESPONDIENTES A SOCIAL SCIENCES
 #EN WOS SE BUSCA EN ALL FIELDS Y SE FILTRA POR TRANSPORTATION
-
+library(bibliometrix)
+library(bibliometrixData)
 
 file <- "/Users/rdelatorre/Downloads/scopus128.bib"
 scopus128 <- convert2df(file = file, dbsource = "scopus", format = "bibtex")
@@ -29,20 +31,20 @@ plot(x = results, k = 10, pause = TRUE)
 
 M$CR[1]
 CR1 <- citations(M, field = "article", sep = ";")
-CR1$Cited[1:10]
+CR1$Cited[1:15]
 
 CR2 <- citations(M, field = "author", sep = ";")
-CR2$Cited[1:10]
+CR2$Cited[1:15]
 
 CR3 <- localCitations(M, sep = ";")
-CR3$Authors[1:10,]
-CR3$Papers[1:10,]
+CR3$Authors[1:15,]
+CR3$Papers[1:15,]
 
 DF <- dominance(results, k=15)
 DF
 
 NetMatrix <- biblioNetwork(M, analysis = "co-citation", network = "references", sep = ";")
-net=networkPlot(NetMatrix, n = 10, Title = "Red de co-citas en Scopus", type = "auto", cluster = "kamada", size=T,
+net=networkPlot(NetMatrix, n = 10, Title = "Red de co-citas", type = "auto", cluster = "kamada", size=T,
                 remove.multiple=TRUE, remove.isolates = TRUE, labelsize=0.8,edgesize = 5)#en lugar de "kamada" el cluster puede ser "louvain"
 
 authorProdOverTime(M, k = 10, graph = TRUE)
