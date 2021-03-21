@@ -150,17 +150,31 @@ file.copy("mytest3.R", "mytest2.R")
 
 
 #file path sirve para establecer directorios de trabajo 
+#ejemplo con materias
 
 path<- file.path("C:", "Users", "rdelatorre", "Documents", "GitHub", "Rbasico", fsep="/")
+
 setwd(path)
 
         
 
-###
+###Crear directorio dentro de nuestro directorio, para que funcione el directorio debe existir.
+#manualmente crear una carpeta y posteriormente ver cómo aparece otra materia 
+#CREAR MATERIAS MANUALMENTE
 
-dir.create("testdir/pruebas3")
+dir.create("materias/filosofia")
+dir.create("filosofia/lecturas")
+
+
+path<- file.path("C:", "Users", "rdelatorre", "Documents", "GitHub", "Rbasico", "materias", fsep="/")
+setwd(path)
+
+
+#Podemos crear archivos
 
 file.create("jc.txt")
+file.create("prueba2.R.")
+
 
 getwd()
 
@@ -175,6 +189,41 @@ setwd(old.dir)
 
 getwd()
 
-dir.create("testdir/testdir2")
+#Crear irectorios dentro de directorios
 
-dir.create(file.path("testdir5", "testdir6"), recursive = TRUE)
+dir.create(file.path("biologia", "lecturas"), recursive = TRUE)
+
+
+
+materias <- c("historia", "geografia", "fisica", "quimica")
+
+for (i in materias){
+  
+  dir.create(i)
+  
+  
+}
+
+dir.create("quimica/lecturas")
+
+#Lesson 3
+
+#Lesson 4
+
+vect <- c(0.5, 55, -10, 6)
+tf <- (vect < 1)
+
+vect >= 6
+
+(3 > 5)
+(4 == 4)
+
+(3 > 5) & (4 == 4)
+
+(3 > 5) | (4 == 4)
+
+((111 >= 111) | !(TRUE)) & ((4 + 1) == 5)
+
+
+
+paste(my_name, collapse = " ")
