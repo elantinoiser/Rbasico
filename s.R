@@ -144,7 +144,7 @@ file.rename("mytest2.R", "mytest.R")
 
 #Copiar archivos
 
-file.copy("mytest3.R", "mytest2.R")
+file.copy("mytest.R", "borrador1.1.R")
 
 #file.path
 
@@ -162,8 +162,12 @@ setwd(path)
 #manualmente crear una carpeta y posteriormente ver cómo aparece otra materia 
 #CREAR MATERIAS MANUALMENTE
 
+#MATERIAS
+getwd()
+
 dir.create("materias/filosofia")
-dir.create("filosofia/lecturas")
+
+dir.create("materias/filosofia/lecturas")
 
 
 path<- file.path("C:", "Users", "rdelatorre", "Documents", "GitHub", "Rbasico", "materias", fsep="/")
@@ -201,12 +205,63 @@ for (i in materias){
   
   dir.create(i)
   
-  
 }
 
 dir.create("quimica/lecturas")
 
+dir.create(file.path("biologia", "lecturas"))
+
+dir.create("materias/filosofia")
+
+for (i in materias){ 
+dir.create(file.path(i, "lecturas"), recursive = TRUE)
+}
+
 #Lesson 3
+
+ls()
+
+1:20
+pi:10
+15:1
+
+?":"
+
+?"+"
+
+#Deseamos mayor control del que el operador nos da
+
+seq (1,20)
+
+seq (1,20, by=0.5)
+
+seq(1, 20, length=10)
+
+my_seq <- seq(5, 10, length=30)
+
+#supongamos que no conocemos la longitud de my_seq
+
+1:length(my_seq)
+
+seq_along (my_seq)
+
+#Crear un vector que contenga 40 ceros
+
+rep (0, times = 40)
+
+#Repetir un vector
+
+rep(c(0,1,2), times = 10)
+
+rep(c(0,1,2), each = 10)
+
+for (i in 1:10) {
+  
+  print(seq(1,20))
+}
+
+
+
 
 #Lesson 4
 
@@ -227,3 +282,4 @@ vect >= 6
 
 
 paste(my_name, collapse = " ")
+
