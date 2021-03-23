@@ -48,4 +48,16 @@ c(1,2,3,4)+c(0,10)#son vectores de diferente tamaño
 c(1,2,3,4)+c(0,10,0,10)#R "recicla" los elementos para completarlos.
 
 
+#Sesión 2
 
+#¿Dónde estamos trabajando?
+
+getwd() #Directorio o path
+
+list.files()
+
+#¿Qué tengo en mi working space?
+
+ls()
+
+?ls
