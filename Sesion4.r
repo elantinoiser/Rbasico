@@ -1,5 +1,6 @@
 #Sesión 4
 
+
 cars <- cars
 scatter.smooth(x=cars$speed, y=cars$dist, main="Distancia ~ Velocidad")  # scatterplot
 

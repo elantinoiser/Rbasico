@@ -93,7 +93,7 @@ comic_fav <- c(NA, "Superman", "Batman", NA, "Batman")
 edad[3]
 edad[-3]
 
-comic_fav[c(2, 5)]
+comic_fav[c(2:5)]
 comic_fav[c(1,4)]
 
 deporte[-3]
@@ -101,7 +101,7 @@ deporte[-3]
 
 #MATRICES
 
-mimatriz <- matrix(data=1:20, nrow=4, ncol=5, byrow=FALSE)
+mimatriz <- matrix(data=1:20, nrow=4, ncol=5, byrow=TRUE)
 
 mimatriz
 
@@ -114,7 +114,7 @@ mimatriz[, -c(2, 4)]
 
 mimatriz[-1, -3]  # Signo de menos para eliminar
 
-#Arreglos
+#ARREGLOS
 
 miarray <- array(data=letters[1:24], dim=c(3, 4, 2))
 
@@ -124,7 +124,7 @@ miarray[,, 2]  # No se coloca nada en las primeras posiciones
 
 miarray[, 3,]  # No se coloca nada en las primeras posiciones
 
-#MARCOS DE DATOS
+#DATAFRAMES
 
 mimarco <- data.frame(edad, deporte, comic_fav)
 
@@ -143,6 +143,9 @@ mimarco[2:4, 1]
 subset(mimarco, subset=deporte == FALSE)
 
 subset(mimarco, subset=deporte == TRUE)
+
+
+is.na(mimarco)
 
 subset(mimarco, subset=edad >= 17)
 

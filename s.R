@@ -279,7 +279,19 @@ vect >= 6
 
 ((111 >= 111) | !(TRUE)) & ((4 + 1) == 5)
 
+nombres <- c ("Martha", "Edelmira", "Itzamara", "Arturo", "José Alonso")
 
+nom <- c("Mi", "nombre", "es")
 
-paste(my_name, collapse = " ")
+paste(nom, collapse = " ")
+
+nombre <- c(nom, "Johnn")
+
+paste(nombre, collapse = " ")
+
+paste("Centinela", "37", sep = " #")
+
+paste(c("Juárez", "Reforma", "Constitución"), 45:47, sep = " #")
+
+paste(LETTERS, 1:4, sep = "-")
 

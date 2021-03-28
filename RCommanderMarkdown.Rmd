@@ -1,0 +1,112 @@
+<!-- R Commander Markdown Template -->
+
+Replace with Main Title
+=======================
+
+### Your Name
+
+### `r as.character(Sys.Date())`
+
+```{r echo=FALSE}
+# include this code chunk as-is to set options
+knitr::opts_chunk$set(comment=NA, prompt=TRUE, out.width=750, fig.height=8, fig.width=8)
+library(Rcmdr)
+library(car)
+library(RcmdrMisc)
+```
+
+
+```{r echo=FALSE}
+# include this code chunk as-is to enable 3D graphs
+library(rgl)
+knitr::knit_hooks$set(webgl = hook_webgl)
+```
+
+
+```{r}
+data(Arrests, package="carData")
+```
+
+```{r}
+indexplot(Arrests[,c('age', 'year'), drop=FALSE], type='h', id.method='y', 
+  id.n=2)
+```
+
+```{r}
+indexplot(Arrests[,'age', drop=FALSE], type='h', id.method='y', id.n=2)
+```
+
+```{r}
+with(Arrests, Dotplot(age, bin=FALSE))
+```
+
+```{r}
+with(Arrests, Dotplot(age, bin=FALSE))
+```
+
+```{r}
+with(Arrests, Dotplot(age, bin=FALSE))
+```
+
+```{r}
+with(Arrests, Hist(age, scale="frequency", breaks="Sturges", 
+  col="darkgray"))
+```
+
+```{r}
+with(Arrests, discretePlot(year, scale="frequency"))
+```
+
+```{r}
+
+```{r}
+densityPlot( ~ age, data=Arrests, bw=bw.SJ, adjust=1, kernel=dnorm, 
+  method="adaptive")
+```
+
+```{r}
+library(aplpack, pos=18)
+```
+
+
+```{r}
+with(Arrests, stem.leaf(age, na.rm=TRUE))
+```
+
+```{r}
+Boxplot( ~ age, data=Arrests, id=list(method="y"))
+```
+
+```{r}
+with(Arrests, qqPlot(age, dist="norm", id=list(method="y", n=2, 
+  labels=rownames(Arrests))))
+```
+
+```{r}
+symbox(~ age, data=Arrests, trans=bcPower, powers=c(-1,-0.5,0,0.5,1))
+```
+
+```{r}
+symbox(~ age, data=Arrests, trans=bcPower, powers=c(-1,-0.5,0,0.5,1))
+```
+
+```{r}
+scatterplot(year~age, regLine=FALSE, smooth=FALSE, boxplots=FALSE, 
+  data=Arrests)
+```
+
+```{r}
+scatterplotMatrix(~age+checks+year, regLine=FALSE, smooth=FALSE, 
+  diagonal=list(method="density"), data=Arrests)
+```
+
+```{r}
+library(colorspace, pos=19)
+```
+
+
+```{r}
+with(Arrests, piechart(colour, xlab="", ylab="", main="colour", 
+  col=rainbow_hcl(2), scale="percent"))
+```
+
