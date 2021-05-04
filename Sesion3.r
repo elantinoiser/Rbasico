@@ -4,10 +4,14 @@
 #http://researchtoolsbox.blogspot.com/2020/06/
 #https://jllopisperez.com/2013/07/06/tema-27-analisis-de-correspondencias/
 ####https://www.youtube.com/watch?v=CwgNPdzKMVI
-
-#LA BÚSQUEDA SE FINALIZÓ EL 17 DE MARZO DE 2021
+#https://rstudio-pubs-static.s3.amazonaws.com/253042_5cc214c2db1845a0a45fa4b7cb9a78d8.html
+#https://mran.microsoft.com/snapshot/2018-05-11/web/packages/bibliometrix/vignettes/bibliometrix-vignette.html
+#LA B?SQUEDA SE FINALIZ? EL 17 DE MARZO DE 2021
 #EN SCOPUS SE BUSCA ENTRECOMILLADO Y SE SELECCIONAN LAS OBSERVACIONES CORRESPONDIENTES A SOCIAL SCIENCES
 #EN WOS SE BUSCA EN ALL FIELDS Y SE FILTRA POR TRANSPORTATION
+
+# Cargar bibliometrix-----------------------------------------------------------
+
 library(bibliometrix)
 library(bibliometrixData)
 
@@ -23,15 +27,35 @@ M<-bibliometrix::mergeDbSources(savedrecs393, scopus128, remove.duplicated = TRU
 M<- M[-34,]
 M<- M[-52,]
 
-
+-----------------------------------------------------------------------------------
 results <- biblioAnalysis(M, sep = ";")
-S <- summary(object = results, k = 10, pause = TRUE)
+S <- summary(object = results, k = 100, pause = TRUE)
 plot(x = results, k = 10, pause = TRUE)
 
 
+#berdica, holling, bruneau
 M$CR[1]
 CR1 <- citations(M, field = "article", sep = ";")
-CR1$Cited[1:15]
+CR1$Cited[1:100]
+cits <- CR1$Cited[1:100]
+
+#cits
+cits <- as.data.frame(cits)
+cits<- stringr::str_split(cits$CR, pattern = "DOI", 2)
+cits <- unlist(cits)
+cits <- as.data.frame(cits)
+cits$tf <- grepl("10.", cits$c)
+cits <- cits %>% select(c, tf) %>% filter(tf=="TRUE") %>% select(c)
+#exportarlo para limpiar en excell
+
+cits<- read.csv("/Users/rdelatorre/Downloads/cits.csv")
+cits<- sub(" ", "", cits$DI)
+cits <- as.data.frame(cits)
+names(cits) <- c("DI")
+
+left_join(cits, M)
+
+#######################################################
 
 CR2 <- citations(M, field = "author", sep = ";")
 CR2$Cited[1:15]
@@ -43,12 +67,15 @@ CR3$Papers[1:15,]
 DF <- dominance(results, k=15)
 DF
 
+#Red de co-citas
+
 NetMatrix <- biblioNetwork(M, analysis = "co-citation", network = "references", sep = ";")
 net=networkPlot(NetMatrix, n = 10, Title = "Red de co-citas", type = "auto", cluster = "kamada", size=T,
                 remove.multiple=TRUE, remove.isolates = TRUE, labelsize=0.8,edgesize = 5)#en lugar de "kamada" el cluster puede ser "louvain"
 
 authorProdOverTime(M, k = 10, graph = TRUE)
 
+#Co-ocurrencia de palabras
 
 NetMatrix <- biblioNetwork(M, analysis = "co-occurrences", network = "keywords", sep = ";")
 net=networkPlot(NetMatrix, normalize="association", weighted=T, n = 30, Title = "Keyword Cooccurrences", type = "fruchterman", size=T,edgesize = 5,labelsize=0.7)
@@ -65,4 +92,32 @@ histResults <- histNetwork(M, sep = ";")
 net <- histPlot(histResults, n=20, size = TRUE, labelsize = 5)
 
 
+#Country collaboration
+
+M <- metaTagExtraction(M, Field = "AU_CO", sep = ";")
+NetMatrix <- biblioNetwork(M, analysis = "collaboration", network = "countries", sep = ";")
+net=networkPlot(NetMatrix, n = 20, Title = "Country Collaboration", type = "circle", size=TRUE,remove.multiple=FALSE)
+net=networkPlot(NetMatrix, n = 20, Title = "Country Collaboration", type = "fruchterman", size=FALSE, remove.multiple=TRUE)
+
+
+#Bibliographic collaboration
+
+NetMatrix <- biblioNetwork(M, analysis = "collaboration", network = "authors", sep = ";")
+net=networkPlot(NetMatrix, n = 20, Title = "Bibliographic collaboration", type = "kamada", size=FALSE, remove.multiple=TRUE)
+
+#Buscar abstracts con el DOI
+
+M %>% select(DI, AB) %>% filter(DI=="10.1016/j.jtrangeo.2020.102727")
+
+K <- M[order(desc(M$TC)),]
+
+head(K$TC,10)
+head(K$AU, 10)
+head(K[,c("AU", "AB", "TC", "DI")], 108)
+
+#inclusion: mayores a 10 total citations.
+
+m10 <- M %>% select(AU, TI, TC, AB, DI) %>% filter(TC>10)
+m10 <- m10[order(desc(m10$TC)),]
+m10$DI[13]
 
