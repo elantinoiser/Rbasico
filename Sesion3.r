@@ -103,7 +103,8 @@ net=networkPlot(NetMatrix, n = 20, Title = "Country Collaboration", type = "fruc
 #Bibliographic collaboration
 
 NetMatrix <- biblioNetwork(M, analysis = "collaboration", network = "authors", sep = ";")
-net=networkPlot(NetMatrix, n = 20, Title = "Bibliographic collaboration", type = "kamada", size=FALSE, remove.multiple=TRUE)
+net=networkPlot(NetMatrix, n = 20, Title = "Bibliographic collaboration", type = "circle", size=FALSE, remove.multiple=TRUE)
+net=networkPlot(NetMatrix, n = 20, Title = "Bibliographic collaboration", type = "kamada", size=TRUE, remove.multiple=TRUE)
 
 #Buscar abstracts con el DOI
 
@@ -120,4 +121,8 @@ head(K[,c("AU", "AB", "TC", "DI")], 108)
 m10 <- M %>% select(AU, TI, TC, AB, DI) %>% filter(TC>10)
 m10 <- m10[order(desc(m10$TC)),]
 m10$DI[13]
+
+#################
+
+L<- filter(M, grepl('BIG DATA',AB))
 
